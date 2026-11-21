@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Kalusugan</string>
+    <string name="op_group_network">Network</string>
+    <string name="op_group_notifications">Mga notification</string>
+    <string-array name="op_read_heart_rate">
+        <item>Basahin ang bilis ng tibok ng puso</item>
+        <item>Pinapayagan ang app na basahin ang mga sukat ng bilis ng tibok ng puso.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Basahin ang temperatura ng balat</item>
+        <item>Pinapayagan ang app na basahin ang mga sukat ng temperatura ng balat.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>I-access ang lokal na network</item>
+        <item>Pinapayagan ang app na makipag-ugnayan sa mga device sa lokal na network.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Magpakita ng mga naka-highlight na notification</item>
+        <item>Pinapayagan ang app na gawing mas kapansin-pansin ang mga kwalipikadong notification.</item>
+    </string-array>
+</resources>

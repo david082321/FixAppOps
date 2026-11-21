@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Kompatibilitätsmodul für App Ops unter Android 16 und 17</string>
-    <string name="module_description">Stellt in App Ops 9.0.7 unter Android 16 und 17 die Auswahl von Nutzern und Arbeitsprofilen wieder her. Behebt unter Android 17 einen Absturz beim Laden der Liste installierter Apps.</string>
+    <string name="app_name">Kompatibilitätsmodul für App Ops unter Android 15–17</string>
+    <string name="module_description">Passt App Ops 9.0.7 an neuere Android-Versionen an. Behebt Probleme beim Profilwechsel und mit App-Listen, aktualisiert die Berechtigungsverwaltung und die Überwachung von Vorgängen und ergänzt Namen für neuere Vorgänge.</string>
 </resources>

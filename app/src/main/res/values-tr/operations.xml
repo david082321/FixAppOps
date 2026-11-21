@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Sağlık</string>
+    <string name="op_group_network">Ağ</string>
+    <string name="op_group_notifications">Bildirimler</string>
+    <string-array name="op_read_heart_rate">
+        <item>Kalp atış hızını okuma</item>
+        <item>Uygulamanın kalp atış hızı ölçümlerini okumasına izin verir.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Cilt sıcaklığını okuma</item>
+        <item>Uygulamanın cilt sıcaklığı ölçümlerini okumasına izin verir.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Yerel ağa erişme</item>
+        <item>Uygulamanın yerel ağdaki cihazlarla iletişim kurmasına izin verir.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Öne çıkarılan bildirimleri gösterme</item>
+        <item>Uygulamanın uygun bildirimleri daha belirgin bir şekilde göstermesine izin verir.</item>
+    </string-array>
+</resources>

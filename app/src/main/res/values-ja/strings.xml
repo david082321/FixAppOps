@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">App Ops 用 Android 16–17 互換モジュール</string>
-    <string name="module_description">Android 16・17 の App Ops 9.0.7 で、ユーザーや仕事用プロファイルを再び切り替えられるようにします。Android 17 でインストール済みアプリの一覧を読み込む際にクラッシュする問題も修正します。</string>
+    <string name="app_name">App Ops 用 Android 15–17 互換モジュール</string>
+    <string name="module_description">App Ops 9.0.7 を新しい Android に対応させます。プロファイルの切り替えとアプリ一覧を修正し、権限の処理と操作の監視を更新します。新しい操作には表示名を追加します。</string>
 </resources>

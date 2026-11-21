@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">وحدة توافق App Ops مع Android 16 و17</string>
-    <string name="module_description">تُعيد إلى App Ops 9.0.7 قائمة اختيار المستخدم أو ملف العمل على Android 16 و17، وتُصلح مشكلة توقف التطبيق عند تحميل قائمة التطبيقات المثبّتة على Android 17.</string>
+    <string name="app_name">وحدة توافق App Ops مع Android 15–17</string>
+    <string name="module_description">يكيّف App Ops 9.0.7 مع إصدارات Android الحديثة. يُصلح تبديل الملفات الشخصية وقوائم التطبيقات، ويحدّث التعامل مع الأذونات ومراقبة العمليات، ويضيف أسماء للعمليات الأحدث.</string>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Առողջություն</string>
+    <string name="op_group_network">Ցանց</string>
+    <string name="op_group_notifications">Ծանուցումներ</string>
+    <string-array name="op_read_heart_rate">
+        <item>Կարդալ սրտի զարկերի հաճախությունը</item>
+        <item>Թույլ է տալիս հավելվածին կարդալ սրտի զարկերի հաճախության չափման արդյունքները։</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Կարդալ մաշկի ջերմաստիճանը</item>
+        <item>Թույլ է տալիս հավելվածին կարդալ մաշկի ջերմաստիճանի չափման արդյունքները։</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Մուտք գործել տեղային ցանց</item>
+        <item>Թույլ է տալիս հավելվածին հաղորդակցվել տեղային ցանցի սարքերի հետ։</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Ցուցադրել ընդգծված ծանուցումներ</item>
+        <item>Թույլ է տալիս հավելվածին ավելի տեսանելի դարձնել համապատասխան ծանուցումները։</item>
+    </string-array>
+</resources>

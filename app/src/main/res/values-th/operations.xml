@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">สุขภาพ</string>
+    <string name="op_group_network">เครือข่าย</string>
+    <string name="op_group_notifications">การแจ้งเตือน</string>
+    <string-array name="op_read_heart_rate">
+        <item>อ่านอัตราการเต้นของหัวใจ</item>
+        <item>อนุญาตให้แอปอ่านค่าที่วัดได้ของอัตราการเต้นของหัวใจ</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>อ่านอุณหภูมิผิวหนัง</item>
+        <item>อนุญาตให้แอปอ่านค่าที่วัดได้ของอุณหภูมิผิวหนัง</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>เข้าถึงเครือข่ายท้องถิ่น</item>
+        <item>อนุญาตให้แอปสื่อสารกับอุปกรณ์ในเครือข่ายท้องถิ่น</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>แสดงการแจ้งเตือนที่เน้นเป็นพิเศษ</item>
+        <item>อนุญาตให้แอปแสดงการแจ้งเตือนที่เข้าเกณฑ์ให้เด่นชัดยิ่งขึ้น</item>
+    </string-array>
+</resources>

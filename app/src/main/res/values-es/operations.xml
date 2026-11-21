@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Salud</string>
+    <string name="op_group_network">Red</string>
+    <string name="op_group_notifications">Notificaciones</string>
+    <string-array name="op_read_heart_rate">
+        <item>Leer la frecuencia cardíaca</item>
+        <item>Permite que la aplicación lea las mediciones de frecuencia cardíaca.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Leer la temperatura de la piel</item>
+        <item>Permite que la aplicación lea las mediciones de temperatura de la piel.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Acceder a la red local</item>
+        <item>Permite que la aplicación se comunique con dispositivos de la red local.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Mostrar notificaciones destacadas</item>
+        <item>Permite que la aplicación muestre de forma más visible las notificaciones que cumplan los requisitos.</item>
+    </string-array>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">الصحة</string>
+    <string name="op_group_network">الشبكة</string>
+    <string name="op_group_notifications">الإشعارات</string>
+    <string-array name="op_read_heart_rate">
+        <item>قراءة معدّل ضربات القلب</item>
+        <item>يسمح للتطبيق بقراءة قياسات معدّل ضربات القلب.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>قراءة درجة حرارة الجلد</item>
+        <item>يسمح للتطبيق بقراءة قياسات درجة حرارة الجلد.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>الوصول إلى الشبكة المحلية</item>
+        <item>يسمح للتطبيق بالتواصل مع الأجهزة على الشبكة المحلية.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>عرض الإشعارات البارزة</item>
+        <item>يسمح للتطبيق بعرض الإشعارات المؤهلة بشكل أكثر بروزًا.</item>
+    </string-array>
+</resources>

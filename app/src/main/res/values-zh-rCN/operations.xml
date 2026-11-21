@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">健康</string>
+    <string name="op_group_network">网络</string>
+    <string name="op_group_notifications">通知</string>
+    <string-array name="op_read_heart_rate">
+        <item>读取心率</item>
+        <item>允许应用读取心率测量值。</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>读取皮肤温度</item>
+        <item>允许应用读取皮肤温度测量值。</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>访问局域网</item>
+        <item>允许应用与局域网中的设备通信。</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>显示突出通知</item>
+        <item>允许应用以更醒目的方式显示符合条件的通知。</item>
+    </string-array>
+</resources>

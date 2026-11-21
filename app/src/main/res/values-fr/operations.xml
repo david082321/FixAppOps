@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Santé</string>
+    <string name="op_group_network">Réseau</string>
+    <string name="op_group_notifications">Notifications</string>
+    <string-array name="op_read_heart_rate">
+        <item>Lire la fréquence cardiaque</item>
+        <item>Autorise l’application à lire les mesures de fréquence cardiaque.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Lire la température cutanée</item>
+        <item>Autorise l’application à lire les mesures de température de la peau.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Accéder au réseau local</item>
+        <item>Autorise l’application à communiquer avec les appareils du réseau local.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Afficher des notifications mises en avant</item>
+        <item>Autorise l’application à afficher plus visiblement les notifications qui remplissent les conditions.</item>
+    </string-array>
+</resources>

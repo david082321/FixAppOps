@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bridge_start">Start Shizuku, then return to this screen.</string>
+    <string name="bridge_connect">Connect the official App Ops app to FixAppOps using your existing Shizuku authorization?</string>
+    <string name="bridge_request">Allow FixAppOps to request Shizuku access for use with App Ops?</string>
+    <string name="bridge_manage">Manage access for FixAppOps in Shizuku.</string>
+    <string name="bridge_install">Install the supported official App Ops build (1708).</string>
+</resources>

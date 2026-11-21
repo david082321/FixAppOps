@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Sức khỏe</string>
+    <string name="op_group_network">Mạng</string>
+    <string name="op_group_notifications">Thông báo</string>
+    <string-array name="op_read_heart_rate">
+        <item>Đọc nhịp tim</item>
+        <item>Cho phép ứng dụng đọc kết quả đo nhịp tim.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Đọc nhiệt độ da</item>
+        <item>Cho phép ứng dụng đọc kết quả đo nhiệt độ da.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Truy cập mạng cục bộ</item>
+        <item>Cho phép ứng dụng giao tiếp với các thiết bị trên mạng cục bộ.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Hiển thị thông báo nổi bật</item>
+        <item>Cho phép ứng dụng hiển thị các thông báo đủ điều kiện ở dạng nổi bật hơn.</item>
+    </string-array>
+</resources>

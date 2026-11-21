@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bridge_start">Shizuku’yu başlatıp bu ekrana dönün.</string>
+    <string name="bridge_connect">Resmî App Ops uygulaması mevcut Shizuku izninizle FixAppOps’a bağlansın mı?</string>
+    <string name="bridge_request">FixAppOps, App Ops ile kullanmak için Shizuku erişimi istesin mi?</string>
+    <string name="bridge_manage">FixAppOps erişimini Shizuku üzerinden yönetin.</string>
+    <string name="bridge_install">App Ops’un desteklenen resmî sürümünü (derleme 1708) yükleyin.</string>
+</resources>

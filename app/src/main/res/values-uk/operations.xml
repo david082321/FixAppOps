@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Здоров’я</string>
+    <string name="op_group_network">Мережа</string>
+    <string name="op_group_notifications">Сповіщення</string>
+    <string-array name="op_read_heart_rate">
+        <item>Читання пульсу</item>
+        <item>Дозволяє застосунку читати результати вимірювання пульсу.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Читання температури шкіри</item>
+        <item>Дозволяє застосунку читати результати вимірювання температури шкіри.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Доступ до локальної мережі</item>
+        <item>Дозволяє застосунку обмінюватися даними з пристроями в локальній мережі.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Показ виділених сповіщень</item>
+        <item>Дозволяє застосунку помітніше показувати сповіщення, які відповідають вимогам.</item>
+    </string-array>
+</resources>

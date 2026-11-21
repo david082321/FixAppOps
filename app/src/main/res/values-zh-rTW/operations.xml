@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">健康</string>
+    <string name="op_group_network">網路</string>
+    <string name="op_group_notifications">通知</string>
+    <string-array name="op_read_heart_rate">
+        <item>讀取心率</item>
+        <item>允許應用程式讀取心率測量值。</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>讀取皮膚溫度</item>
+        <item>允許應用程式讀取皮膚溫度測量值。</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>存取區域網路</item>
+        <item>允許應用程式與區域網路上的裝置通訊。</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>顯示醒目通知</item>
+        <item>允許應用程式以更醒目的方式顯示符合條件的通知。</item>
+    </string-array>
+</resources>

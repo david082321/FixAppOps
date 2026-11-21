@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Mô-đun tương thích cho App Ops trên Android 16–17</string>
-    <string name="module_description">Khôi phục tùy chọn chuyển đổi giữa người dùng và hồ sơ công việc trong App Ops 9.0.7 trên Android 16 và 17. Khắc phục lỗi ứng dụng bị đóng đột ngột khi tải danh sách ứng dụng đã cài đặt trên Android 17.</string>
+    <string name="app_name">Mô-đun tương thích cho App Ops trên Android 15–17</string>
+    <string name="module_description">Điều chỉnh App Ops 9.0.7 cho các phiên bản Android mới hơn. Khắc phục lỗi chuyển hồ sơ và danh sách ứng dụng, cập nhật cách xử lý quyền và theo dõi thao tác, đồng thời bổ sung tên cho các thao tác mới.</string>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Gezondheid</string>
+    <string name="op_group_network">Netwerk</string>
+    <string name="op_group_notifications">Meldingen</string>
+    <string-array name="op_read_heart_rate">
+        <item>Hartslag lezen</item>
+        <item>Staat de app toe hartslagmetingen te lezen.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Huidtemperatuur lezen</item>
+        <item>Staat de app toe metingen van de huidtemperatuur te lezen.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Toegang tot het lokale netwerk</item>
+        <item>Staat de app toe met apparaten op het lokale netwerk te communiceren.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Uitgelichte meldingen weergeven</item>
+        <item>Staat de app toe geschikte meldingen opvallender weer te geven.</item>
+    </string-array>
+</resources>

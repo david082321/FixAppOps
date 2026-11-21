@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Kesehatan</string>
+    <string name="op_group_network">Jaringan</string>
+    <string name="op_group_notifications">Notifikasi</string>
+    <string-array name="op_read_heart_rate">
+        <item>Membaca detak jantung</item>
+        <item>Mengizinkan aplikasi membaca hasil pengukuran detak jantung.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Membaca suhu kulit</item>
+        <item>Mengizinkan aplikasi membaca hasil pengukuran suhu kulit.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Mengakses jaringan lokal</item>
+        <item>Mengizinkan aplikasi berkomunikasi dengan perangkat di jaringan lokal.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Menampilkan notifikasi yang ditonjolkan</item>
+        <item>Mengizinkan aplikasi menampilkan notifikasi yang memenuhi syarat secara lebih mencolok.</item>
+    </string-array>
+</resources>

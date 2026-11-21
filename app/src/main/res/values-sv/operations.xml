@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Hälsa</string>
+    <string name="op_group_network">Nätverk</string>
+    <string name="op_group_notifications">Aviseringar</string>
+    <string-array name="op_read_heart_rate">
+        <item>Läsa puls</item>
+        <item>Tillåter appen att läsa pulsmätningar.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Läsa hudtemperatur</item>
+        <item>Tillåter appen att läsa mätningar av hudtemperaturen.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Åtkomst till det lokala nätverket</item>
+        <item>Tillåter appen att kommunicera med enheter i det lokala nätverket.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Visa framhävda aviseringar</item>
+        <item>Tillåter appen att visa aviseringar som uppfyller villkoren mer framträdande.</item>
+    </string-array>
+</resources>

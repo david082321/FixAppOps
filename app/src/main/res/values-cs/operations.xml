@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Zdraví</string>
+    <string name="op_group_network">Síť</string>
+    <string name="op_group_notifications">Oznámení</string>
+    <string-array name="op_read_heart_rate">
+        <item>Číst tepovou frekvenci</item>
+        <item>Umožní aplikaci číst naměřené hodnoty tepové frekvence.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Číst teplotu kůže</item>
+        <item>Umožní aplikaci číst naměřené hodnoty teploty kůže.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Přistupovat k místní síti</item>
+        <item>Umožní aplikaci komunikovat se zařízeními v místní síti.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Zobrazovat zvýrazněná oznámení</item>
+        <item>Umožní aplikaci zobrazovat vybraná oznámení výrazněji.</item>
+    </string-array>
+</resources>

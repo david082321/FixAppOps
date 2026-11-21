@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Salut</string>
+    <string name="op_group_network">Xarxa</string>
+    <string name="op_group_notifications">Notificacions</string>
+    <string-array name="op_read_heart_rate">
+        <item>Llegir la freqüència cardíaca</item>
+        <item>Permet que l’aplicació llegeixi els mesuraments de freqüència cardíaca.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Llegir la temperatura de la pell</item>
+        <item>Permet que l’aplicació llegeixi els mesuraments de temperatura de la pell.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Accedir a la xarxa local</item>
+        <item>Permet que l’aplicació es comuniqui amb dispositius de la xarxa local.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Mostrar notificacions destacades</item>
+        <item>Permet que l’aplicació mostri de manera més visible les notificacions que compleixen els requisits.</item>
+    </string-array>
+</resources>

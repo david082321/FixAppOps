@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">בריאות</string>
+    <string name="op_group_network">רשת</string>
+    <string name="op_group_notifications">התראות</string>
+    <string-array name="op_read_heart_rate">
+        <item>קריאת דופק</item>
+        <item>מאפשר לאפליקציה לקרוא מדידות דופק.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>קריאת טמפרטורת העור</item>
+        <item>מאפשר לאפליקציה לקרוא מדידות של טמפרטורת העור.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>גישה לרשת המקומית</item>
+        <item>מאפשר לאפליקציה לתקשר עם מכשירים ברשת המקומית.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>הצגת התראות מודגשות</item>
+        <item>מאפשר לאפליקציה להציג התראות שעומדות בתנאים בצורה בולטת יותר.</item>
+    </string-array>
+</resources>

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">App Ops Android 16–17 兼容模块</string>
-    <string name="module_description">修复 App Ops 9.0.7 在 Android 16 和 17 上无法切换用户或工作资料的问题，以及在 Android 17 上加载应用列表时崩溃的问题。</string>
+    <string name="app_name">App Ops Android 15–17 兼容模块</string>
+    <string name="module_description">适配新版 Android 上的 App Ops 9.0.7。修复切换用户或工作资料及加载应用列表的问题，更新权限处理和操作监控，并为较新的操作添加名称。</string>
 </resources>

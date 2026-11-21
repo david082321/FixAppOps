@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Android 16–17 için App Ops uyumluluk modülü</string>
-    <string name="module_description">Android 16 ve 17’de App Ops 9.0.7 içinde kullanıcılar ve iş profilleri arasında geçiş yapma seçeneğini geri getirir. Android 17’de yüklü uygulamalar listesi açılırken oluşan çökmeyi de giderir.</string>
+    <string name="app_name">Android 15–17 için App Ops uyumluluk modülü</string>
+    <string name="module_description">App Ops 9.0.7’yi yeni Android sürümlerine uyarlar. Profil değiştirme ve uygulama listesi sorunlarını giderir, izin yönetimini ve işlem izlemeyi günceller, yeni işlemlere ad ekler.</string>
 </resources>

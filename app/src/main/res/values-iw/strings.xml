@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">מודול תאימות ל־App Ops עבור Android 16 ו־17</string>
-    <string name="module_description">מחזיר ל־App Ops 9.0.7 את התפריט לבחירת משתמש או פרופיל עבודה ב־Android 16 ו־17. מתקן קריסה בעת טעינת רשימת האפליקציות המותקנות ב־Android 17.</string>
+    <string name="app_name">מודול תאימות ל־App Ops עבור Android 15–17</string>
+    <string name="module_description">מתאים את App Ops 9.0.7 לגרסאות חדשות של Android. מתקן את המעבר בין פרופילים ואת רשימות האפליקציות, מעדכן את ניהול ההרשאות ואת ניטור הפעולות ומוסיף שמות לפעולות חדשות.</string>
 </resources>

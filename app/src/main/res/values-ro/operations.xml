@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Sănătate</string>
+    <string name="op_group_network">Rețea</string>
+    <string name="op_group_notifications">Notificări</string>
+    <string-array name="op_read_heart_rate">
+        <item>Citirea ritmului cardiac</item>
+        <item>Permite aplicației să citească măsurătorile ritmului cardiac.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Citirea temperaturii pielii</item>
+        <item>Permite aplicației să citească măsurătorile temperaturii pielii.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Accesarea rețelei locale</item>
+        <item>Permite aplicației să comunice cu dispozitivele din rețeaua locală.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Afișarea notificărilor evidențiate</item>
+        <item>Permite aplicației să afișeze mai vizibil notificările eligibile.</item>
+    </string-array>
+</resources>

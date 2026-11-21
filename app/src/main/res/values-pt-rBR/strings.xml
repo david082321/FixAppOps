@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Módulo de compatibilidade do App Ops para Android 16–17</string>
-    <string name="module_description">No App Ops 9.0.7, restaura a opção de alternar entre usuários e perfis de trabalho no Android 16 e 17. Corrige também o fechamento inesperado ao carregar a lista de aplicativos instalados no Android 17.</string>
+    <string name="app_name">Módulo de compatibilidade do App Ops para Android 15–17</string>
+    <string name="module_description">Adapta o App Ops 9.0.7 às versões mais recentes do Android. Corrige a troca de perfis e as listas de apps, atualiza o gerenciamento de permissões e o monitoramento de operações e adiciona nomes para novas operações.</string>
 </resources>

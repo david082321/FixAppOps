@@ -1,0 +1,3 @@
+FixAppOps includes Shizuku API 13.1.5 (MIT), dexlib2 2.5.2 (see dexlib2-NOTICE.txt),
+Guava 27.1-android and failureaccess 1.0.1 (Apache License 2.0), and JSR305 3.0.2
+(BSD 3-Clause). The corresponding license texts are in this directory.

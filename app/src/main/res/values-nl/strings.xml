@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Compatibiliteitsmodule voor App Ops op Android 16 en 17</string>
-    <string name="module_description">Herstelt het menu om een gebruiker of werkprofiel te kiezen in App Ops 9.0.7 op Android 16 en 17. Verhelpt een crash bij het laden van de lijst met geïnstalleerde apps op Android 17.</string>
+    <string name="app_name">Compatibiliteitsmodule voor App Ops op Android 15–17</string>
+    <string name="module_description">Past App Ops 9.0.7 aan voor nieuwere Android-versies. Verhelpt problemen met het wisselen van profiel en met app-lijsten, werkt het beheer van machtigingen en het volgen van bewerkingen bij en voegt namen toe voor nieuwe bewerkingen.</string>
 </resources>

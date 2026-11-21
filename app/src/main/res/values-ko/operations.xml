@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">건강</string>
+    <string name="op_group_network">네트워크</string>
+    <string name="op_group_notifications">알림</string>
+    <string-array name="op_read_heart_rate">
+        <item>심박수 읽기</item>
+        <item>앱이 심박수 측정값을 읽도록 허용합니다.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>피부 온도 읽기</item>
+        <item>앱이 피부 온도 측정값을 읽도록 허용합니다.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>로컬 네트워크 액세스</item>
+        <item>앱이 로컬 네트워크의 기기와 통신하도록 허용합니다.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>강조된 알림 표시</item>
+        <item>앱이 조건에 맞는 알림을 더 눈에 띄게 표시하도록 허용합니다.</item>
+    </string-array>
+</resources>

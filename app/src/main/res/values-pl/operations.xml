@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Zdrowie</string>
+    <string name="op_group_network">Sieć</string>
+    <string name="op_group_notifications">Powiadomienia</string>
+    <string-array name="op_read_heart_rate">
+        <item>Odczytywanie tętna</item>
+        <item>Pozwala aplikacji odczytywać wyniki pomiarów tętna.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Odczytywanie temperatury skóry</item>
+        <item>Pozwala aplikacji odczytywać wyniki pomiarów temperatury skóry.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Dostęp do sieci lokalnej</item>
+        <item>Pozwala aplikacji komunikować się z urządzeniami w sieci lokalnej.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Wyświetlanie wyróżnionych powiadomień</item>
+        <item>Pozwala aplikacji wyświetlać w bardziej widoczny sposób powiadomienia spełniające wymagania.</item>
+    </string-array>
+</resources>

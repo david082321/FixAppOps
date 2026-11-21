@@ -2,18 +2,33 @@
 
 # FixAppOps
 
-FixAppOps 1.2 is an LSPosed module for **App Ops 9.0.7** (Google Play build `9.0.7.r1708.57e6ad70.G`) on Android 16 and 17. It runs inside the official App Ops app, so you can keep your existing installation and purchase verification.
+FixAppOps is a compatibility module for **App Ops 9.0.7** (Google Play build `9.0.7.r1708.57e6ad70.G`) on Android 15–17. It works with the installed official APK and its existing purchase verification.
 
 | Android version | What it fixes |
 | --- | --- |
+| Android 15–17 (API 35–37) | Restores clipboard and active-operation callbacks, and supplies translated names, descriptions and categories for newer operations. |
+| Android 15–17 with the optional Shizuku connection | Adapts permission flags, runtime grant and revoke calls, and the callbacks used to record history in the App Ops remote service. |
 | Android 16 and 17 (API 36–37) | Restores the user and work profile switcher when App Ops can only see the current user after a system update. |
 | Android 17 (API 37) | Fixes the `getInstalledPackages` crash when App Ops opens the list of installed apps. |
 
 ## Install
 
-1. Keep the official App Ops installed. Install the signed module APK. Version 1.2 is available directly in this repository. Published updates appear under **Assets** on GitHub. [Download FixAppOps 1.2](dist/FixAppOps-1.2.apk) · [GitHub Releases](https://github.com/david082321/FixAppOps/releases)
+1. Keep the official App Ops installed and install the signed FixAppOps APK. Download an automated build from [GitHub Releases](https://github.com/david082321/FixAppOps/releases) or build from source.
 2. In an LSPosed manager that supports **libxposed API 102**, enable FixAppOps and select **App Ops** (`rikka.appops`) as its scope.
 3. Force-stop App Ops from Android settings and reopen it. With a work profile present, tap the arrow at the top of the App Ops navigation drawer to switch profiles.
+
+## Shizuku access
+
+**You can leave FixAppOps unauthorized in Shizuku. In Shizuku mode, keep the official App Ops app authorized.** The module restores the installed apps list and profile switching on affected Android versions. Version 1.3 also translates newer operations. Enable the corresponding monitors in App Ops to see live clipboard alerts and camera usage notifications.
+
+**Only two fixes in 1.3 require a separate grant for FixAppOps.**
+
+- **Runtime permission sync** applies a grant or revocation made in App Ops to the Android permission itself.
+- **Usage history** saves events to the official App Ops history so you can review them after a live alert disappears.
+
+App Ops 9.0.7 performs both tasks in a separate process started by Shizuku. That process still calls older Android interfaces. LSPosed loads the module into the App Ops user interface and monitoring processes. FixAppOps supplies its own service to fix the two operations that run remotely. Shizuku checks which package owns that service, so the official app’s grant covers its own service only.
+
+To enable these two fixes, first authorize the official App Ops in Shizuku, then open FixAppOps and approve its access request. FixAppOps reopens App Ops to connect. You can revoke the FixAppOps grant at any time and continue using the app list, profile switching, translations and live monitoring.
 
 ## Build from source
 
@@ -34,23 +49,3 @@ pwsh ./build.ps1 -KeyStore 'C:\keys\FixAppOps\appops-local.p12' -PasswordFile 'C
 ```
 
 The signed module is written to `build/AppOps-Android16-17-LSPosed.apk`. The script verifies the project’s release certificate by default. When signing a personal build, pass `-ExpectedSignerSha256` with your certificate’s SHA-256 fingerprint as 64 hexadecimal characters.
-
-## Publish a GitHub Release
-
-In **Settings → Secrets and variables → Actions → New repository secret**, add these two secrets. Replace the example paths with the full paths to the release signing files. Run one command, paste its clipboard value into the corresponding secret, then repeat for the other.
-
-| Secret | Value | PowerShell command to copy it |
-| --- | --- | --- |
-| `FIXAPPOPS_KEYSTORE_BASE64` | Base64-encoded bytes of `appops-local.p12` | `Set-Clipboard -Value ([Convert]::ToBase64String([IO.File]::ReadAllBytes('C:\keys\FixAppOps\appops-local.p12')))` |
-| `FIXAPPOPS_KEYSTORE_PASSWORD` | Single-line password from `storepass.txt` | `Set-Clipboard -Value (Get-Content -LiteralPath 'C:\keys\FixAppOps\storepass.txt' -TotalCount 1)` |
-
-Set `versionName` and increment `versionCode` in `app/build.gradle.kts` for each new release. Commit and push that change to `main`, then publish using either method.
-
-- **Version tag** — push the matching tag, for example `git tag v1.2` followed by `git push origin v1.2`.
-- **Manual run** — choose **Actions → Release → Run workflow** on `main`. The workflow uses the Gradle version to create the tag.
-
-The workflow runs the same `build.ps1` used locally, checks the APK against the project’s release signing certificate, and publishes the signed APK as a release asset. GitHub supplies the workflow token.
-
-## Verification
-
-Tests on Android 16 QPR2 and Android 17 emulators used real Android system services. They confirmed that personal and work profiles return separate app lists and that changing a work app’s operation leaves the same app in the personal profile unaffected. A test harness invoked the module callbacks. LSPosed injection on a physical device remains unverified.

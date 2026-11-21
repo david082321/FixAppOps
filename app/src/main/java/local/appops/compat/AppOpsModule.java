@@ -17,11 +17,15 @@ public final class AppOpsModule extends XposedModule {
     public void onPackageReady(PackageReadyParam param) {
         int sdk = Build.VERSION.SDK_INT;
         if (!"rikka.appops".equals(param.getPackageName()) || !param.isFirstPackage()
-                || (sdk != 36 && sdk != 37)) return;
+                || sdk < 35 || sdk > 37) return;
 
         ClassLoader app = param.getClassLoader();
-        installUserQuery(app);
+        if (sdk >= 36) installUserQuery(app);
         if (sdk == 37) installPackageQuery(app);
+        PermissionHooks.install(this, app);
+        MonitorCallbackHooks.install(this, app);
+        OperationMetadata.install(this, app);
+        ServiceConnectionHooks.install(this, app);
     }
 
     private void installUserQuery(ClassLoader app) {

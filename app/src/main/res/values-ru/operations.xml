@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">Здоровье</string>
+    <string name="op_group_network">Сеть</string>
+    <string name="op_group_notifications">Уведомления</string>
+    <string-array name="op_read_heart_rate">
+        <item>Чтение пульса</item>
+        <item>Разрешает приложению читать результаты измерений пульса.</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>Чтение температуры кожи</item>
+        <item>Разрешает приложению читать результаты измерений температуры кожи.</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>Доступ к локальной сети</item>
+        <item>Разрешает приложению обмениваться данными с устройствами в локальной сети.</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>Показ выделенных уведомлений</item>
+        <item>Разрешает приложению показывать подходящие уведомления в более заметном виде.</item>
+    </string-array>
+</resources>

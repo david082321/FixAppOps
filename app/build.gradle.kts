@@ -7,10 +7,10 @@ android {
     compileSdk = 37
     defaultConfig {
         applicationId = "local.appops.compat"
-        minSdk = 36
+        minSdk = 35
         targetSdk = 37
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 5
+        versionName = "1.3"
     }
     buildTypes {
         release {
@@ -25,4 +25,9 @@ android {
 
 dependencies {
     compileOnly("io.github.libxposed:api:102.0.0")
+    compileOnly("androidx.annotation:annotation:1.3.0")
+    implementation("dev.rikka.shizuku:api:13.1.5")
+    implementation("dev.rikka.shizuku:provider:13.1.5")
+    implementation("org.smali:dexlib2:2.5.2")
+    implementation("com.google.guava:guava:27.1-android")
 }

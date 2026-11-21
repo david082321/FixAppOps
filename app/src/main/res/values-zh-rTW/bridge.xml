@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bridge_start">請啟動 Shizuku，再返回此畫面。</string>
+    <string name="bridge_connect">要使用現有的 Shizuku 授權，讓官方 App Ops 連接 FixAppOps 嗎？</string>
+    <string name="bridge_request">要讓 FixAppOps 申請 Shizuku 授權，以便與 App Ops 搭配使用嗎？</string>
+    <string name="bridge_manage">請在 Shizuku 中管理 FixAppOps 的授權。</string>
+    <string name="bridge_install">請安裝支援的官方 App Ops 版本（1708）。</string>
+</resources>

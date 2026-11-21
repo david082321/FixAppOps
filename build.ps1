@@ -3,6 +3,7 @@
 param(
     [string] $Sdk = $env:ANDROID_HOME,
     [string] $ApiAar,
+    [string] $DependencyCache,
     [Parameter(Mandatory)] [string] $KeyStore,
     [Parameter(Mandatory)] [string] $PasswordFile,
     [ValidatePattern('^[0-9a-fA-F]{64}$')]
@@ -41,14 +42,42 @@ try {
     [IO.Compression.ZipFileExtensions]::ExtractToFile($aar.GetEntry('classes.jar'), $apiJar)
 } finally { $aar.Dispose() }
 
+$dependencies = @(
+    'org/smali/dexlib2/2.5.2/dexlib2-2.5.2.jar 5a5c8982d8bd7d6e3bb1a0713049e3c78b719ec32b20f6b619885cec30a0dd61'
+    'com/google/guava/guava/27.1-android/guava-27.1-android.jar 686404f2d1d4d221911f96bd627ff60dac2226a5dfa6fb8ba517073eb97ec0ef'
+    'com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26'
+    'com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar 766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7'
+    'dev/rikka/shizuku/api/13.1.5/api-13.1.5.aar 4def9bde498ef8626614c2fc5db9af4749c86f16f6c33e3f5658d35e70bab59b'
+    'dev/rikka/shizuku/aidl/13.1.5/aidl-13.1.5.aar 33fe7191cdd69fcb66d649264f3b0c47acb2f3d6343afc05b98dbbff6f221963'
+    'dev/rikka/shizuku/shared/13.1.5/shared-13.1.5.aar 4659642c9339be0a26e9c65bb8648f7ad6d8f4a465f557993ccbc78802381635'
+    'dev/rikka/shizuku/provider/13.1.5/provider-13.1.5.aar b0f18cd9812464ec171c53cac93a819fe411718a3965c311f01eb4de265381b3'
+)
+if (!$DependencyCache) { $DependencyCache = $work }
+$runtimeJars = @(foreach ($entry in $dependencies) {
+    $path, $digest = $entry.Split(' ')
+    $artifact = Join-Path $DependencyCache ([IO.Path]::GetFileName($path))
+    if (!(Test-Path -LiteralPath $artifact)) {
+        Invoke-WebRequest -Uri ("https://repo.maven.apache.org/maven2/" + $path) -OutFile $artifact
+    }
+    if ((Get-FileHash -LiteralPath $artifact -Algorithm SHA256).Hash -ne $digest) {
+        throw "Dependency digest mismatch: $path"
+    }
+    if ($artifact.EndsWith('.aar')) {
+        $jar = Join-Path $work ([IO.Path]::ChangeExtension([IO.Path]::GetFileName($path), '.jar'))
+        $archive = [IO.Compression.ZipFile]::OpenRead($artifact)
+        try { [IO.Compression.ZipFileExtensions]::ExtractToFile($archive.GetEntry('classes.jar'), $jar) }
+        finally { $archive.Dispose() }
+        $jar
+    } else { $artifact }
+})
 $classes = (New-Item -ItemType Directory (Join-Path $work 'classes')).FullName
 $sources = @(Get-ChildItem -Recurse -File (Join-Path $source 'java') -Filter '*.java' | ForEach-Object FullName)
-& (Join-Path $javaBin 'javac.exe') -encoding UTF-8 --release 17 -classpath "$platform;$apiJar" -d $classes @sources
+$compileClasspath = (@($platform, $apiJar) + $runtimeJars) -join [IO.Path]::PathSeparator
+& (Join-Path $javaBin 'javac.exe') -encoding UTF-8 --release 17 -classpath $compileClasspath -d $classes @sources
 $classFiles = @(Get-ChildItem -Recurse -File $classes -Filter '*.class' | ForEach-Object FullName)
 $java = Join-Path $javaBin 'java.exe'
 $dex = (New-Item -ItemType Directory (Join-Path $work 'dex')).FullName
-# SDK Build Tools 37.0.0 ships a D8 that accepts API 36 as its highest bytecode floor.
-& $java -cp (Join-Path $sdkTools 'lib/d8.jar') com.android.tools.r8.D8 --release --min-api 36 --lib $platform --classpath $apiJar --output $dex @classFiles
+& $java -cp (Join-Path $sdkTools 'lib/d8.jar') com.android.tools.r8.D8 --release --min-api 35 --lib $platform --classpath $apiJar --output $dex @classFiles @runtimeJars
 
 $manifest = Join-Path $work 'AndroidManifest.xml'
 $xml = [IO.File]::ReadAllText((Join-Path $source 'AndroidManifest.xml'))
@@ -57,11 +86,13 @@ $resources = Join-Path $work 'resources.zip'
 $unsigned = Join-Path $work 'unsigned.apk'
 $aapt = Join-Path $sdkTools 'aapt2.exe'
 & $aapt compile --dir (Join-Path $source 'res') -o $resources
-& $aapt link -o $unsigned --manifest $manifest -I $platform --min-sdk-version 36 --target-sdk-version 37 --version-code $versionCode --version-name $versionName $resources
+& $aapt link -o $unsigned --manifest $manifest -I $platform --min-sdk-version 35 --target-sdk-version 37 --version-code $versionCode --version-name $versionName $resources
 
 $apk = [IO.Compression.ZipFile]::Open($unsigned, [IO.Compression.ZipArchiveMode]::Update)
 try {
-    [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($apk, (Join-Path $dex 'classes.dex'), 'classes.dex') | Out-Null
+    foreach ($file in Get-ChildItem -LiteralPath $dex -Filter 'classes*.dex' -File) {
+        [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($apk, $file.FullName, $file.Name) | Out-Null
+    }
     $metadata = Join-Path $source 'resources'
     foreach ($file in Get-ChildItem -Recurse -File $metadata) {
         $path = [IO.Path]::GetRelativePath($metadata, $file.FullName).Replace('\', '/')

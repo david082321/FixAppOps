@@ -2,18 +2,33 @@
 
 # FixAppOps
 
-FixAppOps 1.2 是适用于 Android 16 和 17 的 LSPosed 模块，支持 **App Ops 9.0.7**（Google Play 版 `9.0.7.r1708.57e6ad70.G`）。模块在官方 App Ops 的进程内运行，可以继续使用已安装的 App Ops 和原有的购买验证流程。
+FixAppOps 是适用于 Android 15–17 的兼容模块，支持 **App Ops 9.0.7**（Google Play 版 `9.0.7.r1708.57e6ad70.G`），可继续使用已安装的官方 App Ops 和原有的购买验证。
 
 | Android 版本 | 修复内容 |
 | --- | --- |
+| Android 15–17（API 35–37） | 修复剪贴板与使用监控事件，为新操作提供本地化名称、说明和分类。 |
+| Android 15–17，另行启用 Shizuku 连接 | 修复远程服务读取权限标志、同步授予和撤销权限，以及记录使用历史所需的事件回调。 |
 | Android 16 和 17（API 36–37） | 修复系统更新后 App Ops 只能列出当前用户的问题，恢复用户和工作资料的切换菜单。 |
 | Android 17（API 37） | 修复 App Ops 打开已安装应用列表时因调用 `getInstalledPackages` 而闪退的问题。 |
 
 ## 安装
 
-1. 保留官方 App Ops，另外安装已签名的模块 APK。可以直接从本仓库下载 1.2 版，以后发布的版本可在 GitHub 发布页面的 **Assets** 下下载。[下载 FixAppOps 1.2](dist/FixAppOps-1.2.apk) · [GitHub Releases](https://github.com/david082321/FixAppOps/releases)
+1. 保留官方 App Ops，另外安装已签名的 FixAppOps APK。[GitHub Releases](https://github.com/david082321/FixAppOps/releases) 提供自动打包版本，也可以从源码构建。
 2. 在支持 **libxposed API 102** 的 LSPosed 管理器中启用 FixAppOps，并在作用域中勾选 **App Ops**（`rikka.appops`）。
 3. 在 Android 系统设置中强行停止 App Ops，然后重新打开。如果设备有工作资料，点按 App Ops 侧栏菜单顶部的箭头即可切换。
+
+## Shizuku 授权
+
+**只授权官方 App Ops，不授权 FixAppOps，也能使用模块。** 在受影响的 Android 版本上，这样就能修复已安装应用列表以及用户和工作资料切换。从 1.3 起，新操作的翻译也能正常显示。在 App Ops 中开启相应的监视器后，就能看到剪贴板浮窗和相机使用通知。
+
+**1.3 只有两项修复需要单独授权 FixAppOps。**
+
+- **运行时权限同步**会在你通过 App Ops 选择“允许”或“拒绝”时，同时更改 Android 系统中对应的权限。
+- **使用情况历史记录**会将事件写入官方 App Ops 的历史记录，实时提醒消失后仍可查看。
+
+App Ops 9.0.7 把这两项工作交给 Shizuku 启动的独立进程。该进程仍调用旧版 Android 接口。LSPosed 在 App Ops 的应用进程内加载模块，而这两项远程修复由 FixAppOps 提供的另一个服务执行。Shizuku 会核对服务所属的软件包，因此授予官方 App Ops 的权限只涵盖它自己的服务。
+
+如需这两项修复，先在 Shizuku 中授权官方 App Ops，再打开 FixAppOps 并同意它的授权请求。FixAppOps 会重新打开 App Ops 完成连接。你可以随时撤销 FixAppOps 的授权，继续使用应用列表、资料切换、翻译和实时监控。
 
 ## 从源码构建
 
@@ -34,23 +49,3 @@ pwsh ./build.ps1 -KeyStore 'C:\keys\FixAppOps\appops-local.p12' -PasswordFile 'C
 ```
 
 签名后的模块位于 `build/AppOps-Android16-17-LSPosed.apk`。脚本默认校验项目的发布证书。使用个人密钥时，请通过 `-ExpectedSignerSha256` 指定个人证书的 SHA-256 指纹，格式为 64 个十六进制字符。
-
-## 发布 GitHub Release
-
-前往 **Settings → Secrets and variables → Actions → New repository secret**，添加下面两个仓库机密。请将示例路径改为正式签名文件的完整路径。每运行一条命令，就将剪贴板内容粘贴到对应的机密中，再处理下一个。
-
-| 机密名称 | 填入的值 | 复制到剪贴板的 PowerShell 命令 |
-| --- | --- | --- |
-| `FIXAPPOPS_KEYSTORE_BASE64` | `appops-local.p12` 文件内容的 Base64 编码 | `Set-Clipboard -Value ([Convert]::ToBase64String([IO.File]::ReadAllBytes('C:\keys\FixAppOps\appops-local.p12')))` |
-| `FIXAPPOPS_KEYSTORE_PASSWORD` | `storepass.txt` 中的单行密码 | `Set-Clipboard -Value (Get-Content -LiteralPath 'C:\keys\FixAppOps\storepass.txt' -TotalCount 1)` |
-
-每次发布新版本，先在 `app/build.gradle.kts` 中设置 `versionName` 并递增 `versionCode`。提交更改并推送到 `main` 后，可以选择以下任一方式发布。
-
-- **推送版本标签** — 推送与版本对应的标签。例如依次运行 `git tag v1.2` 和 `git push origin v1.2`。
-- **手动运行** — 前往 **Actions → Release → Run workflow**，选择 `main`。工作流会按 Gradle 版本创建标签。
-
-GitHub Actions 会运行与本地相同的 `build.ps1`，用项目的正式签名证书验证 APK，再将签名版 APK 上传为 GitHub Release 附件。工作流使用 GitHub 提供的内置令牌。
-
-## 验证范围
-
-已在 Android 16 QPR2 和 Android 17 模拟器上使用实际的 Android 系统服务进行测试。个人资料和工作资料可以分别列出各自的应用，修改工作资料中某个应用的操作权限后，个人资料中的同一应用仍保留原设置。测试通过工具调用了模块的回调函数，LSPosed 在真机上加载模块的情况仍待验证。

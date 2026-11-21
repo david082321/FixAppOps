@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bridge_start">Shizuku를 시작한 뒤 이 화면으로 돌아오세요.</string>
+    <string name="bridge_connect">기존 Shizuku 권한을 사용해 공식 App Ops를 FixAppOps에 연결할까요?</string>
+    <string name="bridge_request">App Ops에서 사용할 수 있도록 FixAppOps가 Shizuku 권한을 요청하게 할까요?</string>
+    <string name="bridge_manage">Shizuku에서 FixAppOps의 권한을 관리하세요.</string>
+    <string name="bridge_install">지원되는 공식 App Ops 빌드(1708)를 설치하세요.</string>
+</resources>

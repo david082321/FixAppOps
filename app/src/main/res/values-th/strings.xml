@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">โมดูลความเข้ากันได้ของ App Ops สำหรับ Android 16–17</string>
-    <string name="module_description">ทำให้ App Ops 9.0.7 สลับระหว่างผู้ใช้และโปรไฟล์งานได้อีกครั้งบน Android 16 และ 17 และแก้ปัญหาแอปปิดตัวลงขณะโหลดรายชื่อแอปที่ติดตั้งบน Android 17</string>
+    <string name="app_name">โมดูลความเข้ากันได้ของ App Ops สำหรับ Android 15–17</string>
+    <string name="module_description">ปรับ App Ops 9.0.7 ให้รองรับ Android รุ่นใหม่ แก้ปัญหาการสลับโปรไฟล์และรายการแอป ปรับปรุงการจัดการสิทธิ์และการติดตามการทำงาน พร้อมเพิ่มชื่อสำหรับการทำงานแบบใหม่</string>
 </resources>

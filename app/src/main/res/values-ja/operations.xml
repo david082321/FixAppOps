@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="op_group_health">健康</string>
+    <string name="op_group_network">ネットワーク</string>
+    <string name="op_group_notifications">通知</string>
+    <string-array name="op_read_heart_rate">
+        <item>心拍数の読み取り</item>
+        <item>アプリに心拍数の測定値の読み取りを許可します。</item>
+    </string-array>
+    <string-array name="op_read_skin_temperature">
+        <item>皮膚温の読み取り</item>
+        <item>アプリに皮膚温の測定値の読み取りを許可します。</item>
+    </string-array>
+    <string-array name="op_access_local_network">
+        <item>ローカル ネットワークへのアクセス</item>
+        <item>アプリにローカル ネットワーク上のデバイスとの通信を許可します。</item>
+    </string-array>
+    <string-array name="op_post_promoted_notifications">
+        <item>通知の強調表示</item>
+        <item>アプリに対象の通知を目立つ形式で表示することを許可します。</item>
+    </string-array>
+</resources>

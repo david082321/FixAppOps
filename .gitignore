@@ -9,3 +9,4 @@ local-signing/
 *.keystore
 *.p12
 storepass.txt
+/tests/

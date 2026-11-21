@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Модуль совместимости App Ops с Android 16–17</string>
-    <string name="module_description">Возвращает в App Ops 9.0.7 возможность переключаться между пользователями и рабочими профилями на Android 16 и 17. Устраняет сбой при загрузке списка установленных приложений на Android 17.</string>
+    <string name="app_name">Модуль совместимости App Ops с Android 15–17</string>
+    <string name="module_description">Адаптирует App Ops 9.0.7 к новым версиям Android. Исправляет переключение профилей и списки приложений, обновляет работу с разрешениями и мониторинг операций, добавляет названия для новых операций.</string>
 </resources>
