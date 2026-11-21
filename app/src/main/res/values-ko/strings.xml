@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App Ops용 Android 16–17 호환 모듈</string>
+    <string name="module_description">Android 16과 17에서 App Ops 9.0.7의 사용자 및 직장 프로필 전환 기능을 복원합니다. Android 17에서 설치된 앱 목록을 불러올 때 앱이 비정상적으로 종료되는 문제도 해결합니다.</string>
+</resources>

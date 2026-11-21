@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Modyul para gumana ang App Ops sa Android 16 at 17</string>
+    <string name="module_description">Ibinabalik sa App Ops 9.0.7 ang menu para pumili ng user o work profile sa Android 16 at 17. Inaayos ang pag-crash kapag nilo-load ang listahan ng mga naka-install na app sa Android 17.</string>
+</resources>

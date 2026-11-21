@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Modul kompatibilitas App Ops untuk Android 16 dan 17</string>
+    <string name="module_description">Mengembalikan menu untuk memilih pengguna atau profil kerja di App Ops 9.0.7 pada Android 16 dan 17. Memperbaiki masalah yang membuat aplikasi berhenti saat memuat daftar aplikasi terinstal pada Android 17.</string>
+</resources>

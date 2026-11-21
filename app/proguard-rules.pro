@@ -1,0 +1,2 @@
+-keep public class local.appops.compat.AppOpsModule { public <init>(); }
+-adaptresourcefilecontents META-INF/xposed/java_init.list

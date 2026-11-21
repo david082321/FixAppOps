@@ -1,0 +1,130 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.event_name == 'push' || github.ref == 'refs/heads/main'
+    runs-on: windows-2025
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      commit: ${{ steps.version.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Check release version
+        id: version
+        shell: pwsh
+        run: |
+          $config = Get-Content -Raw -LiteralPath app/build.gradle.kts
+          $version = [regex]::Match($config, '(?m)^\s*versionName\s*=\s*"([0-9]+(?:\.[0-9]+)+(?:-[0-9A-Za-z.-]+)?)"\s*$')
+          $code = [regex]::Match($config, '(?m)^\s*versionCode\s*=\s*([1-9][0-9]*)\s*$')
+          if (!$version.Success -or !$code.Success) { throw 'Cannot read release version from app/build.gradle.kts' }
+          $tag = 'v' + $version.Groups[1].Value
+          if ($env:GITHUB_EVENT_NAME -eq 'push' -and $env:GITHUB_REF_NAME -cne $tag) {
+            throw "Expected tag $tag for this commit"
+          }
+          $commit = git rev-parse HEAD
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "commit=$commit" >> $env:GITHUB_OUTPUT
+          Write-Output "Building $tag (version code $($code.Groups[1].Value))"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Install Android SDK components
+        shell: pwsh
+        run: |
+          $sdkmanager = Join-Path $env:ANDROID_HOME 'cmdline-tools/latest/bin/sdkmanager.bat'
+          & $sdkmanager 'platforms;android-37.0' 'build-tools;37.0.0'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Build and verify signed APK
+        shell: pwsh
+        env:
+          KEYSTORE_BASE64: ${{ secrets.FIXAPPOPS_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.FIXAPPOPS_KEYSTORE_PASSWORD }}
+        run: |
+          if (!$env:KEYSTORE_BASE64 -or !$env:KEYSTORE_PASSWORD) { throw 'Configure both FixAppOps signing secrets before releasing' }
+          $key = Join-Path $env:RUNNER_TEMP 'fixappops-release.p12'
+          $password = Join-Path $env:RUNNER_TEMP 'fixappops-release-password.txt'
+          try {
+            [IO.File]::WriteAllBytes($key, [Convert]::FromBase64String($env:KEYSTORE_BASE64))
+            [IO.File]::WriteAllText($password, $env:KEYSTORE_PASSWORD)
+            Remove-Item Env:KEYSTORE_BASE64, Env:KEYSTORE_PASSWORD
+            ./build.ps1 -Sdk $env:ANDROID_HOME -KeyStore $key -PasswordFile $password -ExpectedSignerSha256 '4b6f3dd58635b9dbc0553fcc7f748244dc44a57943a98821ff3fbe261de2f906'
+          } finally {
+            Remove-Item -LiteralPath $key, $password -Force -ErrorAction SilentlyContinue
+          }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: signed-apk
+          path: build/AppOps-Android16-17-LSPosed.apk
+          if-no-files-found: error
+          retention-days: 1
+          overwrite: true
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: fixappops-release-${{ needs.build.outputs.tag }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: signed-apk
+          path: dist
+
+      - name: Publish GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.build.outputs.tag }}
+          COMMIT: ${{ needs.build.outputs.commit }}
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          asset="FixAppOps-${TAG#v}.apk"
+          mv dist/AppOps-Android16-17-LSPosed.apk "dist/$asset"
+
+          # Only manual dispatch can introduce a tag. A deleted push tag must not be recreated.
+          if ! gh api "repos/$repo/git/ref/tags/$TAG" --silent; then
+            if [[ "$GITHUB_EVENT_NAME" != workflow_dispatch ]]; then exit 1; fi
+            gh api --method POST "repos/$repo/git/refs" -f "ref=refs/tags/$TAG" -f "sha=$COMMIT" --silent
+          fi
+          target=$(gh api "repos/$repo/commits/refs/tags/$TAG" --jq '.sha')
+          if [[ "$target" != "$COMMIT" ]]; then
+            echo "::error::Tag $TAG already points to a different commit."
+            exit 1
+          fi
+
+          if ! release=$(gh release view "$TAG" --repo "$repo" --json isDraft,assets); then
+            gh release create "$TAG" --repo "$repo" --verify-tag --draft --title "FixAppOps $TAG" --generate-notes
+            release=$(gh release view "$TAG" --repo "$repo" --json isDraft,assets)
+          fi
+          uploaded=$(jq --arg name "$asset" 'any(.assets[]; .name == $name and .state == "uploaded" and .size > 0)' <<< "$release")
+          if [[ $(jq '.isDraft' <<< "$release") == false ]]; then
+            if [[ "$uploaded" != true ]]; then
+              echo "::error::Published release $TAG is missing $asset."
+              exit 1
+            fi
+            echo "Release $TAG already contains $asset."
+            exit 0
+          fi
+          # A failed upload can leave an incomplete asset on a draft. Publish the verified build.
+          gh release upload "$TAG" "dist/$asset" --repo "$repo" --clobber
+          gh release edit "$TAG" --repo "$repo" --draft=false

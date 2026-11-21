@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App Ops-ի համատեղելիության մոդուլ Android 16-ի և 17-ի համար</string>
+    <string name="module_description">Android 16-ում և 17-ում վերականգնում է App Ops 9.0.7-ի՝ օգտատեր կամ աշխատանքային պրոֆիլ ընտրելու ցանկը։ Android 17-ում շտկում է տեղադրված հավելվածների ցանկը բեռնելիս հավելվածի անսպասելի փակման խնդիրը։</string>
+</resources>

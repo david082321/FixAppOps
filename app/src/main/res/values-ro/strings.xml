@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Modul de compatibilitate App Ops pentru Android 16–17</string>
+    <string name="module_description">Restabilește în App Ops 9.0.7 opțiunea de a comuta între utilizatori și profiluri de serviciu pe Android 16 și 17. Remediază și închiderea neașteptată a aplicației la încărcarea listei de aplicații instalate pe Android 17.</string>
+</resources>

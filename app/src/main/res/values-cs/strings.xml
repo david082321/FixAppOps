@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Modul kompatibility App Ops pro Android 16 a 17</string>
+    <string name="module_description">V aplikaci App Ops 9.0.7 na Androidu 16 a 17 obnovuje nabídku pro výběr uživatele nebo pracovního profilu. Na Androidu 17 opravuje pád při načítání seznamu nainstalovaných aplikací.</string>
+</resources>

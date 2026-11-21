@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Kompatibilitetsmodul för App Ops på Android 16–17</string>
+    <string name="module_description">Återställer möjligheten att växla mellan användare och jobbprofiler i App Ops 9.0.7 på Android 16 och 17. Åtgärdar även kraschen när listan över installerade appar läses in på Android 17.</string>
+</resources>

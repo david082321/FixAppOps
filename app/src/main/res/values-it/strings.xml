@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Modulo di compatibilità di App Ops per Android 16 e 17</string>
+    <string name="module_description">Ripristina il menu di selezione degli utenti e dei profili di lavoro in App Ops 9.0.7 su Android 16 e 17. Risolve la chiusura imprevista durante il caricamento dell’elenco delle app installate su Android 17.</string>
+</resources>

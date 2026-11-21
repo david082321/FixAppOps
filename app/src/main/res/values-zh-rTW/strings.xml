@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App Ops Android 16–17 相容模組</string>
+    <string name="module_description">修正 App Ops 9.0.7 在 Android 16、17 上無法切換使用者或工作設定檔的問題，以及在 Android 17 載入應用程式清單時閃退的問題。</string>
+</resources>

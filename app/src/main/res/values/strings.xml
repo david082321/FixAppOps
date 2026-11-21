@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App Ops compatibility module for Android 16–17</string>
+    <string name="module_description">Restores the user and work profile switcher in App Ops 9.0.7 on Android 16 and 17. Fixes a crash when loading the list of installed apps on Android 17.</string>
+</resources>

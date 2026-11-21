@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mòdul de compatibilitat d’App Ops per a Android 16 i 17</string>
+    <string name="module_description">Restaura el selector d’usuaris i perfils de feina d’App Ops 9.0.7 a Android 16 i 17. Corregeix el tancament inesperat de l’aplicació en carregar la llista d’aplicacions instal·lades a Android 17.</string>
+</resources>
