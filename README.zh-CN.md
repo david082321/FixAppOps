@@ -28,7 +28,7 @@ FixAppOps 是适用于 Android 15–17 的兼容模块，支持 **App Ops 9.0.7*
 
 App Ops 9.0.7 把这两项工作交给 Shizuku 启动的独立进程。该进程仍调用旧版 Android 接口。LSPosed 在 App Ops 的应用进程内加载模块，而这两项远程修复由 FixAppOps 提供的另一个服务执行。Shizuku 会核对服务所属的软件包，因此授予官方 App Ops 的权限只涵盖它自己的服务。
 
-如需这两项修复，先在 Shizuku 中授权官方 App Ops，再打开 FixAppOps 并同意它的授权请求。FixAppOps 会重新打开 App Ops 完成连接。你可以随时撤销 FixAppOps 的授权，继续使用应用列表、资料切换、翻译和实时监控。
+如需这两项修复，先在 Shizuku 中授权官方 App Ops，再打开 FixAppOps 并同意它的授权请求。FixAppOps 会重新打开 App Ops 完成连接。你可以随时撤销 FixAppOps 的授权，继续使用应用列表、资料切换和实时监控。
 
 ## 从源码构建
 

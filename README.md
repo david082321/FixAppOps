@@ -28,7 +28,7 @@ FixAppOps is a compatibility module for **App Ops 9.0.7** (Google Play build `9.
 
 App Ops 9.0.7 performs both tasks in a separate process started by Shizuku. That process still calls older Android interfaces. LSPosed loads the module into the App Ops user interface and monitoring processes. FixAppOps supplies its own service to fix the two operations that run remotely. Shizuku checks which package owns that service, so the official app’s grant covers its own service only.
 
-To enable these two fixes, first authorize the official App Ops in Shizuku, then open FixAppOps and approve its access request. FixAppOps reopens App Ops to connect. You can revoke the FixAppOps grant at any time and continue using the app list, profile switching, translations and live monitoring.
+To enable these two fixes, first authorize the official App Ops in Shizuku, then open FixAppOps and approve its access request. FixAppOps reopens App Ops to connect. You can revoke the FixAppOps grant at any time and continue using the app list, profile switching and live monitoring.
 
 ## Build from source
 

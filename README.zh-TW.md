@@ -28,7 +28,7 @@ FixAppOps 是適用於 Android 15–17 的相容模組，支援 **App Ops 9.0.7*
 
 App Ops 9.0.7 把這兩項工作交給 Shizuku 啟動的獨立程序。該程序仍呼叫舊版 Android 介面。LSPosed 會在 App Ops 的應用程式程序內載入模組，而這兩項遠端修復由 FixAppOps 提供的另一個服務執行。Shizuku 依服務所屬套件核對授權，因此授予官方 App Ops 的權限只涵蓋它自己的服務。
 
-若需要這兩項修復，先在 Shizuku 授權官方 App Ops，再開啟 FixAppOps 並同意它的授權要求。FixAppOps 會重新開啟 App Ops 完成連線。你可以隨時撤銷 FixAppOps 的授權，繼續使用應用程式清單、設定檔切換、翻譯和即時監控。
+若需要這兩項修復，先在 Shizuku 授權官方 App Ops，再開啟 FixAppOps 並同意它的授權要求。FixAppOps 會重新開啟 App Ops 完成連線。你可以隨時撤銷 FixAppOps 的授權，繼續使用應用程式清單、設定檔切換和即時監控。
 
 ## 從原始碼建置
 
