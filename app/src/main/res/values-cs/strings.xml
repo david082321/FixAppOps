@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Modul kompatibility App Ops pro Android 15–17</string>
+    <string name="app_name">Modul kompatibility App Ops pro Android 14–17</string>
     <string name="module_description">Přizpůsobuje App Ops 9.0.7 novějším verzím Androidu. Opravuje přepínání profilů a seznamy aplikací, aktualizuje správu oprávnění a sledování operací a přidává názvy nových operací.</string>
 </resources>

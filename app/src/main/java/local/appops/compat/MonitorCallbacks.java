@@ -18,26 +18,43 @@ public final class MonitorCallbacks {
     final Method onTransact;
 
     public static MonitorCallbacks active(ClassLoader stockLoader) throws ReflectiveOperationException {
-        return new MonitorCallbacks(stockLoader, true);
+        return forFramework(stockLoader, true);
     }
 
     public static MonitorCallbacks noted(ClassLoader stockLoader) throws ReflectiveOperationException {
-        return new MonitorCallbacks(stockLoader, false);
+        return forFramework(stockLoader, false);
     }
 
-    private MonitorCallbacks(ClassLoader stockLoader, boolean active) throws ReflectiveOperationException {
-        this.active = active;
-        descriptor = "com.android.internal.app.IAppOps" + (active ? "Active" : "Noted") + "Callback";
+    private static MonitorCallbacks forFramework(ClassLoader stockLoader, boolean active) throws ReflectiveOperationException {
+        String descriptor = "com.android.internal.app.IAppOps" + (active ? "Active" : "Noted") + "Callback";
         String name = active ? "opActiveChanged" : "opNoted";
         Class<?> iface = stockLoader.loadClass(descriptor);
-        Class<?> stub = stockLoader.loadClass(descriptor + "$Stub");
-        Class<?> stock = stockLoader.loadClass(active ? "rikka.appops.u9" : "rikka.appops.hb");
         Class<?>[] current = active
                 ? new Class<?>[]{int.class, int.class, String.class, String.class, int.class,
                         boolean.class, int.class, int.class}
                 : new Class<?>[]{int.class, int.class, String.class, String.class, int.class,
                         int.class, int.class};
-        Method wire = iface.getMethod(name, current);
+        Method wire;
+        try {
+            wire = iface.getMethod(name, current);
+        } catch (NoSuchMethodException missingModernCallback) {
+            if (active) iface.getMethod(name, int.class, int.class, String.class, String.class,
+                    boolean.class, int.class, int.class);
+            else iface.getMethod(name, int.class, int.class, String.class, String.class, int.class, int.class);
+            // Android 14 and QPR2 still deliver the original callback ABI.
+            return null;
+        }
+        return new MonitorCallbacks(stockLoader, active, descriptor, wire);
+    }
+
+    private MonitorCallbacks(ClassLoader stockLoader, boolean active, String descriptor, Method wire)
+            throws ReflectiveOperationException {
+        this.active = active;
+        this.descriptor = descriptor;
+        String name = wire.getName();
+        Class<?>[] current = wire.getParameterTypes();
+        Class<?> stub = stockLoader.loadClass(descriptor + "$Stub");
+        Class<?> stock = stockLoader.loadClass(active ? "rikka.appops.u9" : "rikka.appops.hb");
         if (stock.getSuperclass() != stub || wire.getReturnType() != void.class
                 || !Modifier.isAbstract(stock.getMethod(name, current).getModifiers())) {
             throw new NoSuchMethodException("Unexpected App Ops implementation of " + name);

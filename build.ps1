@@ -24,6 +24,8 @@ $source = Join-Path $project 'app/src/main'
 $KeyStore = (Resolve-Path -LiteralPath $KeyStore).Path
 $PasswordFile = (Resolve-Path -LiteralPath $PasswordFile).Path
 $appConfig = Get-Content -Raw -LiteralPath (Join-Path $project 'app/build.gradle.kts')
+if ($appConfig -notmatch '(?m)^\s*minSdk\s*=\s*(\d+)\s*$') { throw 'Missing minSdk in app/build.gradle.kts' }
+$minSdk = $Matches[1]
 if ($appConfig -notmatch '(?m)^\s*versionCode\s*=\s*(\d+)\s*$') { throw 'Missing versionCode in app/build.gradle.kts' }
 $versionCode = $Matches[1]
 if ($appConfig -notmatch '(?m)^\s*versionName\s*=\s*"([^"]+)"\s*$') { throw 'Missing versionName in app/build.gradle.kts' }
@@ -77,7 +79,7 @@ $compileClasspath = (@($platform, $apiJar) + $runtimeJars) -join [IO.Path]::Path
 $classFiles = @(Get-ChildItem -Recurse -File $classes -Filter '*.class' | ForEach-Object FullName)
 $java = Join-Path $javaBin 'java.exe'
 $dex = (New-Item -ItemType Directory (Join-Path $work 'dex')).FullName
-& $java -cp (Join-Path $sdkTools 'lib/d8.jar') com.android.tools.r8.D8 --release --min-api 35 --lib $platform --classpath $apiJar --output $dex @classFiles @runtimeJars
+& $java -cp (Join-Path $sdkTools 'lib/d8.jar') com.android.tools.r8.D8 --release --min-api $minSdk --lib $platform --classpath $apiJar --output $dex @classFiles @runtimeJars
 
 $manifest = Join-Path $work 'AndroidManifest.xml'
 $xml = [IO.File]::ReadAllText((Join-Path $source 'AndroidManifest.xml'))
@@ -86,7 +88,7 @@ $resources = Join-Path $work 'resources.zip'
 $unsigned = Join-Path $work 'unsigned.apk'
 $aapt = Join-Path $sdkTools 'aapt2.exe'
 & $aapt compile --dir (Join-Path $source 'res') -o $resources
-& $aapt link -o $unsigned --manifest $manifest -I $platform --min-sdk-version 35 --target-sdk-version 37 --version-code $versionCode --version-name $versionName $resources
+& $aapt link -o $unsigned --manifest $manifest -I $platform --min-sdk-version $minSdk --target-sdk-version 37 --version-code $versionCode --version-name $versionName $resources
 
 $apk = [IO.Compression.ZipFile]::Open($unsigned, [IO.Compression.ZipArchiveMode]::Update)
 try {

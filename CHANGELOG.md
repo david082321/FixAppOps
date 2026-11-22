@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4
+
+- Added Android 14 (API 34) support. Operations such as Bluetooth connections and exact alarms now display translated labels when available.
+- Fixed runtime permission sync on Android 14 quarterly updates. The module recognizes the numeric device ID used by QPR2 and the persistent ID used by QPR3. It checks grants and revocations against Android and keeps the original permission calls on early Android 14.
+- Restored clipboard access and camera start/stop events on builds with QPR3-style callbacks. Live alerts work with only the official App Ops app authorized in Shizuku. FixAppOps needs its own grant to deliver those callbacks to the usage history service.
+- Fixed the optional Shizuku connection on Android 14 so App Ops can verify the calling app during setup and reconnect after a force-stop.
+
 ## 1.3 (2026-11-21)
 
 - Restored live clipboard alerts and active-operation notifications on Android 15–17. These fixes work with only the official App Ops app authorized in Shizuku.

@@ -17,6 +17,7 @@ final class MonitorCallbackHooks {
         try {
             MonitorCallbacks adapter = active
                     ? MonitorCallbacks.active(stockLoader) : MonitorCallbacks.noted(stockLoader);
+            if (adapter == null) return;
             module.hook(adapter.onTransact).setId("appops-1708-monitor-" + name)
                     .setExceptionMode(ExceptionMode.PASSTHROUGH)
                     .intercept(chain -> {
@@ -28,4 +29,5 @@ final class MonitorCallbackHooks {
             module.log(Log.WARN, "AppOpsCompat", "Could not adapt the " + name + " callback", e);
         }
     }
+
 }

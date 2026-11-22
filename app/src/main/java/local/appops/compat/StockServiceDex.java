@@ -49,7 +49,7 @@ final class StockServiceDex {
 
     private StockServiceDex() {}
 
-    static byte[] adapt(byte[] pinnedOriginal) throws IOException {
+    static byte[] adapt(byte[] pinnedOriginal, boolean adaptPermissions) throws IOException {
         try {
             if (!MessageDigest.isEqual(DIGEST, MessageDigest.getInstance("SHA-256").digest(pinnedOriginal))) {
                 throw new IllegalArgumentException("Unsupported App Ops classes.dex");
@@ -62,6 +62,8 @@ final class StockServiceDex {
         DexPool output = new DexPool(opcodes);
         for (ClassDef type : original.getClasses()) {
             if (!CLASSES.contains(type.getType())) continue;
+            // Let the installed APK supply working permission implementations on early Android 14.
+            if (!adaptPermissions && (type.getType().equals(FLAGS) || type.getType().equals(SYNC))) continue;
             List<Method> methods = new ArrayList<>();
             for (Method method : type.getMethods()) {
                 methods.add(adaptPermissionCalls(method));

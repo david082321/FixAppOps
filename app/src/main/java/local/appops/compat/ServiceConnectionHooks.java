@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -149,8 +150,7 @@ final class ServiceConnectionHooks {
             if (!BridgeActivation.matches(intent)) return;
             Context context = activity.getApplicationContext();
             int peer = providerUid(context, module.getModuleApplicationInfo());
-            ComponentCaller caller = relaunched ? activity.getCurrentCaller() : activity.getInitialCaller();
-            if (caller == null || !BridgeActivation.fromModule(peer, caller.getUid(), caller.getPackage())
+            if (!BridgeActivation.fromModule(activity, peer, relaunched)
                     || !StockPackage.isOfficialCaller(context, Process.myUid()) || !StockPackage.bothClientsGranted(context)
                     || context.checkUriPermission(BRIDGE, Process.myPid(), Process.myUid(), Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -416,7 +416,10 @@ final class BridgeActivation {
 
     static Intent intent() {
         Intent launch = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
-                .setComponent(HOME).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | GRANTS).putExtra(MARKER, true);
+                .setComponent(HOME).addFlags(GRANTS).putExtra(MARKER, true);
+        // API 34 shares only the original launcher. Recreate the standard home in App Ops' own task.
+        if (Build.VERSION.SDK_INT >= 35) launch.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        else launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         launch.setClipData(ClipData.newRawUri("App Ops compatibility access", URI));
         return launch;
     }
@@ -430,5 +433,17 @@ final class BridgeActivation {
 
     static boolean fromModule(int verifiedUid, int callerUid, String callerPackage) {
         return verifiedUid >= 0 && callerUid == verifiedUid && StockPackage.MODULE.equals(callerPackage);
+    }
+
+    static boolean fromModule(Activity activity, int verifiedUid, boolean relaunched) {
+        if (Build.VERSION.SDK_INT >= 35) return Api35.fromCaller(activity, verifiedUid, relaunched);
+        return !relaunched && fromModule(verifiedUid, activity.getLaunchedFromUid(), activity.getLaunchedFromPackage());
+    }
+
+    private static final class Api35 {
+        static boolean fromCaller(Activity activity, int verifiedUid, boolean relaunched) {
+            ComponentCaller caller = relaunched ? activity.getCurrentCaller() : activity.getInitialCaller();
+            return caller != null && fromModule(verifiedUid, caller.getUid(), caller.getPackage());
+        }
     }
 }

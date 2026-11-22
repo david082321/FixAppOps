@@ -2,10 +2,12 @@
 
 # FixAppOps
 
-FixAppOps is a compatibility module for **App Ops 9.0.7** (Google Play build `9.0.7.r1708.57e6ad70.G`) on Android 15–17. It works with the installed official APK and its existing purchase verification.
+FixAppOps is an LSPosed compatibility module for the official **App Ops 9.0.7** on Android 14–17 (Google Play build `9.0.7.r1708.57e6ad70.G`). You can keep the installed APK and its existing purchase verification. [Changelog](CHANGELOG.md)
 
 | Android version | What it fixes |
 | --- | --- |
+| Android 14 (API 34) | Replaces internal operation names with translated labels when available. The original app list and work profile switcher continue to work. |
+| Android 14 quarterly updates | On systems with the QPR2 permission interface, adapts permission flags and runtime permission sync. On systems with the QPR3 interfaces, also restores live and history callbacks. The module detects the interfaces on the device. |
 | Android 15–17 (API 35–37) | Restores clipboard and active-operation callbacks, and supplies translated names, descriptions and categories for newer operations. |
 | Android 15–17 with the optional Shizuku connection | Adapts permission flags, runtime grant and revoke calls, and the callbacks used to record history in the App Ops remote service. |
 | Android 16 and 17 (API 36–37) | Restores the user and work profile switcher when App Ops can only see the current user after a system update. |
@@ -19,9 +21,9 @@ FixAppOps is a compatibility module for **App Ops 9.0.7** (Google Play build `9.
 
 ## Shizuku access
 
-**You can leave FixAppOps unauthorized in Shizuku. In Shizuku mode, keep the official App Ops app authorized.** The module restores the installed apps list and profile switching on affected Android versions. Version 1.3 also translates newer operations. Enable the corresponding monitors in App Ops to see live clipboard alerts and camera usage notifications.
+**You can leave FixAppOps unauthorized in Shizuku. In Shizuku mode, keep the official App Ops app authorized.** The module restores the installed apps list and profile switching on affected Android versions. Operation labels use the available translations on Android 14–17. Enable the corresponding monitors in App Ops to see live clipboard alerts and camera usage notifications.
 
-**Only two fixes in 1.3 require a separate grant for FixAppOps.**
+**Only two fixes need a separate Shizuku grant for FixAppOps, and only on systems where the corresponding remote call changed.** On early Android 14 builds, the official App Ops app could still handle both operations. On standard Android 14 QPR2, the separate grant is needed for the permission sync fix. On QPR3, it also enables the usage history fix.
 
 - **Runtime permission sync** applies a grant or revocation made in App Ops to the Android permission itself.
 - **Usage history** saves events to the official App Ops history so you can review them after a live alert disappears.

@@ -16,13 +16,8 @@ final class PermissionHooks {
     static void install(XposedModule module, ClassLoader app) {
         try {
             Class<?> permissionManager = app.loadClass("android.permission.IPermissionManager");
-            try {
-                permissionManager.getMethod("getPermissionFlags", String.class, String.class, int.class);
-                return;
-            } catch (NoSuchMethodException ignored) {
-                permissionManager.getMethod("getPermissionFlags",
-                        String.class, String.class, String.class, int.class);
-            }
+            if (PermissionCompat.hasStockFlags(permissionManager)) return;
+            PermissionCompat.findFlags(permissionManager);
             Method flags = app.loadClass("rikka.appops.ak0").getDeclaredMethod(
                     "尾巴捏捏", int.class, String.class, String.class);
             if (flags.getReturnType() != int.class || !Modifier.isStatic(flags.getModifiers())) return;

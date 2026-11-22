@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">App Ops-ի համատեղելիության մոդուլ Android 15–17-ի համար</string>
+    <string name="app_name">App Ops-ի համատեղելիության մոդուլ Android 14–17-ի համար</string>
     <string name="module_description">Հարմարեցնում է App Ops 9.0.7-ը Android-ի նոր տարբերակներին։ Շտկում է պրոֆիլների անցումն ու հավելվածների ցանկերը, թարմացնում է թույլտվությունների կառավարումն ու գործողությունների դիտարկումը և ավելացնում նոր գործողությունների անուններ։</string>
 </resources>

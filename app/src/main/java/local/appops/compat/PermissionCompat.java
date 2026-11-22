@@ -63,13 +63,62 @@ public final class PermissionCompat {
         }
     }
 
-    private static Class<?> manager() throws ClassNotFoundException {
-        return Class.forName("android.permission.IPermissionManager", false, null);
+    static boolean hasStockFlags(Class<?> manager) {
+        try {
+            return manager.getMethod("getPermissionFlags", String.class, String.class, int.class)
+                    .getReturnType() == int.class;
+        } catch (NoSuchMethodException missingStockMethod) {
+            return false;
+        }
     }
 
-    private static String defaultDevice() throws ReflectiveOperationException {
-        return (String) Class.forName("android.companion.virtual.VirtualDeviceManager", false, null)
-                .getField("PERSISTENT_DEVICE_ID_DEFAULT").get(null);
+    static boolean needsAdapter(Class<?> manager) throws ReflectiveOperationException {
+        if (hasStockFlags(manager)) return false;
+        Class<?> device = findFlags(manager).getParameterTypes()[2];
+        // Check the complete write and readback contract before replacing any stock permission call.
+        if (manager.getMethod("updatePermissionFlags", String.class, String.class, int.class, int.class,
+                boolean.class, device, int.class).getReturnType() != void.class
+                || manager.getMethod("grantRuntimePermission", String.class, String.class, device, int.class)
+                        .getReturnType() != void.class
+                || manager.getMethod("revokeRuntimePermission", String.class, String.class, device,
+                        int.class, String.class).getReturnType() != void.class
+                || manager.getMethod("checkPermission", String.class, String.class, device, int.class)
+                        .getReturnType() != int.class) {
+            throw new NoSuchMethodException("Unrecognized Android permission manager");
+        }
+        return true;
+    }
+
+    private static final class Platform {
+        static final Class<?> manager;
+        static final Method flags;
+        static final Class<?> deviceType;
+        static final Object defaultDevice;
+
+        static {
+            try {
+                manager = Class.forName("android.permission.IPermissionManager", false, null);
+                flags = findFlags(manager);
+                deviceType = flags.getParameterTypes()[2];
+                defaultDevice = deviceType == int.class ? android.content.Context.DEVICE_ID_DEFAULT :
+                        Class.forName("android.companion.virtual.VirtualDeviceManager", false, null)
+                                .getField("PERSISTENT_DEVICE_ID_DEFAULT").get(null);
+            } catch (ReflectiveOperationException e) {
+                throw new ExceptionInInitializerError(e);
+            }
+        }
+    }
+
+    static Method findFlags(Class<?> manager) throws NoSuchMethodException {
+        Method flags;
+        try {
+            flags = manager.getMethod("getPermissionFlags", String.class, String.class, String.class, int.class);
+        } catch (NoSuchMethodException noPersistentDevice) {
+            // Android 14 QPR2 uses the numeric default display device; QPR3 uses its persistent ID.
+            flags = manager.getMethod("getPermissionFlags", String.class, String.class, int.class, int.class);
+        }
+        if (flags.getReturnType() != int.class) throw new NoSuchMethodException("Unexpected permission flags type");
+        return flags;
     }
 
     private static Object invoke(Method method, Object receiver, Object... args) throws Throwable {
@@ -82,19 +131,15 @@ public final class PermissionCompat {
 
     public static int getPermissionFlags(Object receiver, String pkg, String permission, int user)
             throws Throwable {
-        return observe(() -> {
-            Method flags = manager().getMethod("getPermissionFlags",
-                    String.class, String.class, String.class, int.class);
-            return (int) invoke(flags, receiver, pkg, permission, defaultDevice(), user);
-        });
+        return observe(() -> (int) invoke(Platform.flags, receiver, pkg, permission, Platform.defaultDevice, user));
     }
 
     public static void updatePermissionFlags(Object receiver, String pkg, String permission, int mask,
                                              int values, boolean checkPolicy, int user) throws Throwable {
         observe(() -> {
-            Method update = manager().getMethod("updatePermissionFlags", String.class, String.class,
-                    int.class, int.class, boolean.class, String.class, int.class);
-            invoke(update, receiver, pkg, permission, mask, values, checkPolicy, defaultDevice(), user);
+            Method update = Platform.manager.getMethod("updatePermissionFlags", String.class, String.class,
+                    int.class, int.class, boolean.class, Platform.deviceType, int.class);
+            invoke(update, receiver, pkg, permission, mask, values, checkPolicy, Platform.defaultDevice, user);
             int actual = getPermissionFlags(receiver, pkg, permission, user);
             if ((actual & mask) != (values & mask)) {
                 throw new IllegalStateException("Android did not apply the requested flags for "
@@ -107,11 +152,10 @@ public final class PermissionCompat {
     public static void grantRuntimePermission(Object receiver, String pkg, String permission, int user)
             throws Throwable {
         observe(() -> {
-            Method grant = manager().getMethod("grantRuntimePermission",
-                    String.class, String.class, String.class, int.class);
-            String device = defaultDevice();
-            invoke(grant, receiver, pkg, permission, device, user);
-            verifyPermission(receiver, pkg, permission, device, user, true);
+            Method grant = Platform.manager.getMethod("grantRuntimePermission",
+                    String.class, String.class, Platform.deviceType, int.class);
+            invoke(grant, receiver, pkg, permission, Platform.defaultDevice, user);
+            verifyPermission(receiver, pkg, permission, user, true);
             return null;
         });
     }
@@ -119,19 +163,19 @@ public final class PermissionCompat {
     public static void revokeRuntimePermission(Object receiver, String pkg, String permission, int user,
                                               String reason) throws Throwable {
         observe(() -> {
-            Method revoke = manager().getMethod("revokeRuntimePermission",
-                    String.class, String.class, String.class, int.class, String.class);
-            String device = defaultDevice();
-            invoke(revoke, receiver, pkg, permission, device, user, reason);
-            verifyPermission(receiver, pkg, permission, device, user, false);
+            Method revoke = Platform.manager.getMethod("revokeRuntimePermission",
+                    String.class, String.class, Platform.deviceType, int.class, String.class);
+            invoke(revoke, receiver, pkg, permission, Platform.defaultDevice, user, reason);
+            verifyPermission(receiver, pkg, permission, user, false);
             return null;
         });
     }
 
-    private static void verifyPermission(Object receiver, String pkg, String permission, String device,
-                                         int user, boolean granted) throws Throwable {
-        Method check = manager().getMethod("checkPermission", String.class, String.class, String.class, int.class);
-        int actual = (int) invoke(check, receiver, pkg, permission, device, user);
+    private static void verifyPermission(Object receiver, String pkg, String permission, int user,
+                                         boolean granted) throws Throwable {
+        Method check = Platform.manager.getMethod("checkPermission", String.class, String.class,
+                Platform.deviceType, int.class);
+        int actual = (int) invoke(check, receiver, pkg, permission, Platform.defaultDevice, user);
         int expected = granted ? PackageManager.PERMISSION_GRANTED : PackageManager.PERMISSION_DENIED;
         if (actual != expected) {
             throw new IllegalStateException("Android did not " + (granted ? "grant " : "revoke ")

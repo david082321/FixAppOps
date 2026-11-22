@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Modul de compatibilitate App Ops pentru Android 15–17</string>
+    <string name="app_name">Modul de compatibilitate App Ops pentru Android 14–17</string>
     <string name="module_description">Adaptează App Ops 9.0.7 la versiunile mai noi de Android. Corectează comutarea între profiluri și listele de aplicații, actualizează gestionarea permisiunilor și monitorizarea operațiunilor și adaugă denumiri pentru operațiunile noi.</string>
 </resources>

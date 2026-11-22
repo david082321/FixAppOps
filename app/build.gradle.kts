@@ -7,10 +7,10 @@ android {
     compileSdk = 37
     defaultConfig {
         applicationId = "local.appops.compat"
-        minSdk = 35
+        minSdk = 34
         targetSdk = 37
-        versionCode = 5
-        versionName = "1.3"
+        versionCode = 6
+        versionName = "1.4"
     }
     buildTypes {
         release {

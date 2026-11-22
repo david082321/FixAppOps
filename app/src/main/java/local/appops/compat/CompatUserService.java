@@ -39,8 +39,9 @@ public final class CompatUserService extends Binder {
             try (InputStream input = apk.getInputStream(dex)) {
                 original = input.readNBytes((int) dex.getSize());
             }
-            // adapt verifies the full DEX digest before producing the four compatibility classes.
-            byte[] overlay = StockServiceDex.adapt(original);
+            // adapt verifies the full DEX digest before producing the required compatibility classes.
+            byte[] overlay = StockServiceDex.adapt(original, PermissionCompat.needsAdapter(
+                    Class.forName("android.permission.IPermissionManager", false, null)));
             ClassLoader loader = new InMemoryDexClassLoader(new ByteBuffer[]{
                     ByteBuffer.wrap(overlay), ByteBuffer.wrap(original)
             }, libraryPath(app, apk), CompatUserService.class.getClassLoader());

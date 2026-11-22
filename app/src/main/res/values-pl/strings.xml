@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Moduł zgodności App Ops z Androidem 15–17</string>
+    <string name="app_name">Moduł zgodności App Ops z Androidem 14–17</string>
     <string name="module_description">Dostosowuje App Ops 9.0.7 do nowszych wersji Androida. Naprawia przełączanie profili i listy aplikacji, aktualizuje obsługę uprawnień i monitorowanie operacji oraz dodaje nazwy nowych operacji.</string>
 </resources>

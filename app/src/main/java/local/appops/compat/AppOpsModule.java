@@ -17,7 +17,7 @@ public final class AppOpsModule extends XposedModule {
     public void onPackageReady(PackageReadyParam param) {
         int sdk = Build.VERSION.SDK_INT;
         if (!"rikka.appops".equals(param.getPackageName()) || !param.isFirstPackage()
-                || sdk < 35 || sdk > 37) return;
+                || sdk < 34 || sdk > 37) return;
 
         ClassLoader app = param.getClassLoader();
         if (sdk >= 36) installUserQuery(app);
